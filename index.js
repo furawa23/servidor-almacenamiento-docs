@@ -2,7 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const app = express();
-const PORT = 3000;
+const PORT = 3005;
 
 // 1. Configuración de almacenamiento
 const storage = multer.diskStorage({
@@ -39,7 +39,7 @@ const upload = multer({
 });
 
 // 3. Ruta para subir el archivo
-app.post('/upload', upload.single('archivo'), (req, res) => {
+app.post('/upload-docs', upload.single('archivo'), (req, res) => {
     try {
         res.send({ message: 'Archivo subido con éxito', file: req.file });
     } catch (error) {
