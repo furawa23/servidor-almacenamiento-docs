@@ -40,11 +40,18 @@ const upload = multer({
 
 // 3. Ruta para subir el archivo
 app.post('/upload-docs', upload.single('archivo'), (req, res) => {
-    try {
-        res.send({ message: 'Archivo subido con éxito', file: req.file });
-    } catch (error) {
-        res.status(400).send({ error: error.message });
+    // 1. Verificamos si req.file existe
+    if (!req.file) {
+        return res.status(400).send({ 
+            error: 'No se ha seleccionado ningún archivo o el formato no es válido.' 
+        });
     }
+
+    // 2. Si llegamos aquí, el archivo existe y pasó el filtro
+    res.send({ 
+        message: 'Archivo subido con éxito', 
+        file: req.file 
+    });
 });
 
 // 4. Servir archivos estáticos (para poder ver/descargar los documentos)
